@@ -1,10 +1,13 @@
 package hello;
 
+import hello.exception.CustomerNotFoundException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -13,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-@RestController
+@Controller
 public class GreetingController {
     private static final String useDefaultValue = "#{null}";
-    private static final String template = "Hello, %s %s!";
+    private static final String template = "%s %s";
     private final AtomicLong counter = new AtomicLong();
     private final String defaultName;
     private final CustomerRepository repository;
@@ -33,7 +36,7 @@ public class GreetingController {
             @ApiResponse(code = 404, message = "User with given username does not exist")}
     )
     @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = useDefaultValue) String name)
+    public String greeting(@RequestParam(value = "name", defaultValue = useDefaultValue) String name, Model model)
             throws RuntimeException {
         if (name == null || useDefaultValue.equals(name)) {
             name = defaultName;
@@ -46,12 +49,9 @@ public class GreetingController {
 
         Customer customer = customers.get(0);
 
+        model.addAttribute("greeting", new Greeting(counter.incrementAndGet(),
+                String.format(template, customer.getFirstName(), customer.getLastName())));
+        return "greeting";
 
-        return new Greeting(counter.incrementAndGet(),
-                String.format(template, customer.getFirstName(), customer.getLastName()));
     }
-}
-
-@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No such Customer")
-class CustomerNotFoundException extends RuntimeException {
 }

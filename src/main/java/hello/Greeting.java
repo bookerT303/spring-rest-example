@@ -2,11 +2,11 @@ package hello;
 
 public class Greeting {
     private final long id;
-    private final String content;
+    private final String fullName;
 
-    public Greeting(long id, String content) {
+    public Greeting(long id, String fullName) {
         this.id = id;
-        this.content = content;
+        this.fullName = fullName;
     }
 
     //    @ApiModelProperty(position = 1, required = true, value = "User Id")
@@ -15,15 +15,15 @@ public class Greeting {
     }
 
     //    @ApiModelProperty(position = 2, required = true)
-    public String getContent() {
-        return content;
+    public String getFullName() {
+        return fullName;
     }
 
     @Override
     public String toString() {
         return "Greeting{" +
                 "id=" + id +
-                ", content='" + content + '\'' +
+                ", fullName='" + fullName + '\'' +
                 '}';
     }
 }
