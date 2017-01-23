@@ -1,0 +1,7 @@
+---
+applications:
+  - name: cf-spring-rest
+    buildpack: java_buildpack
+    path: build/libs/cf-spring-rest-0.1.0.jar
+    services:
+      - mysql

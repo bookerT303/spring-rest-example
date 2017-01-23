@@ -13,7 +13,7 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'pivotal-interview'
+    baseName = 'cf-spring-rest'
     version = '0.1.0'
 }
 
@@ -30,7 +30,8 @@ dependencies {
         "org.springframework.boot:spring-boot-starter-web",
         "org.springframework.boot:spring-boot-devtools",
         "org.springframework.boot:spring-boot-starter-data-jpa",
-        "com.h2database:h2",
+        "org.flywaydb:flyway-core",
+        "mysql:mysql-connector-java",
         "io.springfox:springfox-swagger2:2.2.2",
         "io.springfox:springfox-swagger-ui:2.2.2")
     testCompile(
