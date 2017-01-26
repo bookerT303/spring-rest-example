@@ -47,9 +47,20 @@ gradle clean build
 ```
 cf login -a https://api.run.pivotal.io
 ```
+OR for PEZ
+```
+cf login -a https://api.run.pez.pivotal.io --sso
+```
+
 ### create MySql service
 ```
 cf create-service cleardb spark mysql
+```
+OR
+'cf markplace' and find the MySql service and options like
+for PEZ 
+``` 
+cf create-service p-mysql 100mb-dev mysql
 ```
 
 ### check the service
@@ -71,8 +82,9 @@ Try:
 cf push --random-route
 ```
 
-### try it out... bummer its not working... did you create the database user?
+### try it out... (PEZ Heritage CF worked as expected)
+
+#### bummer its not working on cloud foundry with cleardb... did you create the database user?
 You need to get the database user and password from Cloud Foundry
 and put those as the User defined properties DB_USER and DB_USER_PASSWORD
 
-Flyway did not load the data so I had to manually put the data in the database.
